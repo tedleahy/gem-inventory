@@ -37,6 +37,5 @@ ipcRenderer.on('gem-details', (event, args) => {
 })
 
 document.getElementById('save-btn').onclick = () => {
-    amountSold = Number(document.getElementById('amountSold').innerHTML)
     ipcRenderer.send('update-amount-sold', { id: gem.id, amountSold: gem.amountSold })
 }
