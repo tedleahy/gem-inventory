@@ -41,8 +41,9 @@ ipcMain.on('view-gem', (event, gemId) => createGemWindow(gemId))
 
 ipcMain.on('update-amount-sold', (event, args) => {
     gems.map((gem) => { if (gem.id === args.id) gem.amountSold = args.amountSold })
-    
+
     fs.writeFile(gemsFile, JSON.stringify(gems, null, 2), (err) => {
-        if (err) console.log(err)
+        if (err) return console.log(err)
+        mainWindow.webContents.send('amount-sold-updated', args)
     })
 })

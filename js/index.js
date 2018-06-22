@@ -8,6 +8,7 @@ for (let i = 0; i < gems.length; i++) {
     const gem = gems[i]
 
     const row = table.insertRow(i+1)
+    row.id = 'gem-' + gem.id
 
     row.insertCell(0).innerHTML = gem.id
     row.insertCell(1).innerHTML = gem.name
@@ -21,3 +22,8 @@ for (let i = 0; i < gems.length; i++) {
 
     row.insertCell(4).appendChild(btn)
 }
+
+ipcRenderer.on('amount-sold-updated', (event, args) => {
+    amountSoldEl = document.getElementById('gem-' + args.id).children['3']
+    amountSoldEl.innerHTML = args.amountSold
+})
