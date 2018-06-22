@@ -30,7 +30,7 @@ function createGemWindow(gemId) {
 
     gemWindow.webContents.openDevTools()
 
-    gemWindow.on('closed', () => mainWindow = null) // Dereference object
+    gemWindow.on('closed', () => gemWindow = null) // Dereference object
 }
 
 app.on('ready', createMainWindow)
