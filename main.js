@@ -1,7 +1,11 @@
 const {app, BrowserWindow, ipcMain} = require('electron')
 const fs = require('fs')
 
-let mainWindow
+let mainWindow, gemWindow
+
+// Read gems data from JSON file
+let gemFileData = fs.readFileSync('gems.json')
+let gems = JSON.parse(gemFileData)
 
 function createMainWindow() {
     // Create main app window
@@ -13,9 +17,23 @@ function createMainWindow() {
     mainWindow.on('closed', () => mainWindow = null) // Dereference object
 }
 
+function createGemWindow(gemId) {
+    // Create window for viewing an individual gem
+    gemWindow = new BrowserWindow({width: 800, height: 600})
+    gemWindow.loadFile('viewGem.html')
+
+    gemDetails = gems.filter((x) => x.id == gemId)
+    gemWindow.webContents.on('did-finish-load', () => {
+        gemWindow.webContents.send('gem-details', gemDetails)
+    })
+
+    gemWindow.webContents.openDevTools()
+
+    gemWindow.on('closed', () => mainWindow = null) // Dereference object
+}
+
 app.on('ready', createMainWindow)
 
-let gemFileData = fs.readFileSync('gems.json')
-let gems = JSON.parse(gemFileData)
+ipcMain.on('gems-request-sync', (event) => event.returnValue = gems)
 
-ipcMain.on('gems-request-sync', (event, arg) => event.returnValue = gems)
+ipcMain.on('view-gem', (event, gemId) => createGemWindow(gemId))
