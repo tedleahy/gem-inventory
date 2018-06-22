@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "Labradorite",
+        "price": 2,
+        "amountSold": 5
+    },
+    {
+        "id": 2,
+        "name": "Kyanite",
+        "price": 4.5,
+        "amountSold": 0
+    },
+    {
+        "id": 3,
+        "name": "Dioptase",
+        "price": 7.35,
+        "amountSold": 43
+    },
+    {
+        "id": 4,
+        "name": "Amethyst",
+        "price": 3.05,
+        "amountSold": 17 
+    }
+]

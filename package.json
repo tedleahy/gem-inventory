@@ -1,0 +1,15 @@
+{
+  "name": "gem_inventory",
+  "version": "0.0.1",
+  "description": "Application for tracking the number of gems sold",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Ted Leahy",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^2.0.2"
+  },
+  "dependencies": {}
+}
