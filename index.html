@@ -31,19 +31,16 @@
     let gems = ipcRenderer.sendSync('gems-request-sync') // get initial gems value
 
     let table = document.getElementById('gems')
+
     for (let i = 0; i < gems.length; i++) {
         const gem = gems[i]
 
         const row = table.insertRow(i+1)
-        const id = row.insertCell(0)
-        const name = row.insertCell(1)
-        const price = row.insertCell(2)
-        const amountSold = row.insertCell(3)
 
-        id.innerHTML = gem.id
-        name.innerHTML = gem.name
-        price.innerHTML = gem.price
-        amountSold.innerHTML = gem.amountSold
+        row.insertCell(0).innerHTML = gem.id
+        row.insertCell(1).innerHTML = gem.name
+        row.insertCell(2).innerHTML = gem.price
+        row.insertCell(3).innerHTML = gem.amountSold
     }
 </script>
 
