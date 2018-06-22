@@ -1,6 +1,6 @@
 const {ipcRenderer} = require('electron')
 
-let gem
+let gem, initialAmountSold
 
 function changeAmountSold(action, amountSoldEl) {
     let newAmount = Number(amountSoldEl.innerHTML)
@@ -20,6 +20,7 @@ function changeAmountSold(action, amountSoldEl) {
 
 ipcRenderer.on('gem-details', (event, args) => {
     gem = args[0]
+    initialAmountSold = gem.amountSold
     
     document.title = gem.name
     
@@ -37,5 +38,8 @@ ipcRenderer.on('gem-details', (event, args) => {
 })
 
 document.getElementById('save-btn').onclick = () => {
-    ipcRenderer.send('update-amount-sold', { id: gem.id, amountSold: gem.amountSold })
+    if (gem.amountSold !== initialAmountSold) {
+        ipcRenderer.send('update-amount-sold', { id: gem.id, amountSold: gem.amountSold })
+        initialAmountSold = gem.amountSold
+    }
 }
