@@ -17,7 +17,6 @@
                             <th>Name</th>
                             <th>Price</th>
                             <th>Amount Sold</th>
-                            <th>Actions</th>
                         </tr>
                     </thead>
                 </table>
@@ -29,6 +28,23 @@
 <script>
     const {ipcRenderer} = require('electron')
     
+    let gems = ipcRenderer.sendSync('gems-request-sync') // get initial gems value
+
+    let table = document.getElementById('gems')
+    for (let i = 0; i < gems.length; i++) {
+        const gem = gems[i]
+
+        const row = table.insertRow(i+1)
+        const id = row.insertCell(0)
+        const name = row.insertCell(1)
+        const price = row.insertCell(2)
+        const amountSold = row.insertCell(3)
+
+        id.innerHTML = gem.id
+        name.innerHTML = gem.name
+        price.innerHTML = gem.price
+        amountSold.innerHTML = gem.amountSold
+    }
 </script>
 
 </html>
