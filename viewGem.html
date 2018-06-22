@@ -12,8 +12,12 @@
                 <h1 class="text-center" id="header"></h1>
                 <p><b>Name:</b> <span id="name"></span></p>
                 <p><b>Price:</b> <span id="price"></span></p>
-                <p><b>Amount sold:</b> <span id="amountSold"></span></p>
-                <button class="btn btn-lg btn-success" id="markSold">Mark as sold</button>
+                <p>
+                    <b>Amount sold:</b> <span id="amountSold"></span>
+                    <button class="btn btn-danger changeAmountSold" data-action="decrement">-</button>
+                    <button class="btn btn-success changeAmountSold" data-action="increment">+</button>
+                </p>
+                <button class="btn btn-primary btn-block btn-lg" id="save-btn">Save</button>
             </div>
         </div>
     </div>

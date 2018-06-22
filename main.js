@@ -1,10 +1,11 @@
 const {app, BrowserWindow, ipcMain} = require('electron')
 const fs = require('fs')
 
+const gemsFile = 'gems.json'
 let mainWindow, gemWindow
 
 // Read gems data from JSON file
-let gemFileData = fs.readFileSync('gems.json')
+let gemFileData = fs.readFileSync(gemsFile)
 let gems = JSON.parse(gemFileData)
 
 function createMainWindow() {
@@ -37,3 +38,9 @@ app.on('ready', createMainWindow)
 ipcMain.on('gems-request-sync', (event) => event.returnValue = gems)
 
 ipcMain.on('view-gem', (event, gemId) => createGemWindow(gemId))
+
+ipcMain.on('update-amount-sold', (event, args) => {
+    gems.map((gem) => { if (gem.id === args.id) gem.amountSold = args.amountSold })
+    
+    fs.writeFile(gemsFile, JSON.stringify(gems, null, 2))
+})
